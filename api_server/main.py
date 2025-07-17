@@ -23,7 +23,7 @@ def create_app():
     app = Flask(__name__)
     logger.info("✅ Flask app created")
 
-    @app.route('/')
+    @app.route('/info')
     def home():
         logger.info("🟢 Index page accessed")
 
