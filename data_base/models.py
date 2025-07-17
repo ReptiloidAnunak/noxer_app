@@ -3,6 +3,13 @@ from data_base.data_base import Base, engine
 from sqlalchemy import Column, Integer, String, Float, Boolean, JSON
 
 
+class Category(Base):
+    __tablename__ = 'category'
+    
+    id = Column(Integer, primary_key=True)
+    name = Column(String, nullable=False)
+    sort_order = Column(Integer, nullable=True)
+    image = Column(String, nullable=True)
 
 class Product(Base):
     __tablename__ = 'product'
