@@ -26,3 +26,4 @@ echo
 echo "▶You can access the API server at:"
 echo "http://$(hostname -I | awk '{print $1}'):5555/info"
 echo -e "\n\n"
+docker logs -f noxer_api_server

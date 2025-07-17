@@ -4,7 +4,7 @@ from logger import set_logger
 from settings import API_SOURCES
 from data_base.data_base import SessionLocal
 from api_server.services.products.functions import get_prods_lst_from_api, save_category_to_db, save_product_to_db
-
+from api_server.services.data_view.table_view import get_products_all
 logger = set_logger("SAVE_PRODUCTS")
 
 def save_products_to_db() -> list:
@@ -51,6 +51,8 @@ def save_products_to_db() -> list:
                     session.commit()
                     logger.debug(f"Product {product.id} saved with categories {[cat.id for cat in rel_cats_in_session]}")
     logger.info(f"Total products saved: {len(products_lst_res)}")
+    vars_amount = len(get_products_all())
+    logger.info(f"Total units saved: {vars_amount}")
 
 
 
