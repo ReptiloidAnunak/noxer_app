@@ -1,9 +1,14 @@
+
+import time
+import threading
 from flask import Flask, render_template, request
-from logger import set_logger
+
+
 from api_server.services.products.save_products import save_products_to_db
 from data_base.data_base import Base, engine, SessionLocal
 from data_base.models import Product, Category
-import threading
+from logger import set_logger
+from settings import UPDATE_INTERVAL
 
 
 Base.metadata.create_all(engine)
@@ -64,8 +69,21 @@ def create_app():
     return app
 
 
+def background_updater():
+    while True:
+        logger.info("⏳ Updating products...")
+        try:
+            save_products_to_db()
+            logger.info("✅ Update finished.")
+        except Exception as e:
+            logger.error(f"❌ Error while updating: {e}")
+        time.sleep(UPDATE_INTERVAL)
+
+
 if __name__ == '__main__':
-    threading.Thread(target=save_products_to_db, daemon=True).start()
+    
+
+    threading.Thread(target=background_updater, daemon=True).start()
 
     app = create_app()
     app.run(debug=True, host="0.0.0.0", port=5555)
