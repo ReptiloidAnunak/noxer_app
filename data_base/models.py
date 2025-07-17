@@ -1,6 +1,6 @@
 
 from data_base.data_base import Base
-from sqlalchemy import Table, Column, Integer, String, Float, Boolean, JSON, ForeignKey
+from sqlalchemy import Table, Column, Integer, String, Float, Boolean, DateTime, JSON, ForeignKey
 from sqlalchemy.orm import relationship
 
 

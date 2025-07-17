@@ -1,8 +1,12 @@
 import requests
 from sqlalchemy.exc import IntegrityError
+from logger import set_logger
 
 from data_base.models import Product, Category
 from data_base.data_base import SessionLocal
+
+logger = set_logger("SAVE_PRODUCTS")
+
 
 def get_api_dict(source: str) -> dict:
         response = requests.get(source)
@@ -16,6 +20,7 @@ def get_prods_lst_from_api(source: str) -> list:
 
 
 def save_category_to_db(category_data: dict) -> Category:
+    
     category_id = category_data.get("Category_ID")
 
     with SessionLocal() as session:
@@ -47,6 +52,8 @@ def save_product_to_db(product_data: dict,
     
     product_id = product_data.get("Parameter_ID")
 
+    logger.debug(f"Saving product with ID: {product_id}, Bundle ID: {bundle_id}, Bundle Name: {bundle_name}")
+
     with SessionLocal() as session:
         existing = session.get(Product, product_id)
         if existing:
@@ -64,6 +71,7 @@ def save_product_to_db(product_data: dict,
             reviews_video=reviews_video
         )
         session.add(product)
+        
         try:
             session.commit()
             return product

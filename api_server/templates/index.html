@@ -10,10 +10,57 @@
     <body>
         <section class="section">
             <div class="container">
+
                 <h1 class="title">NOREX APP</h1>
-                <h2 class="subtitle">Welcome to the API Server!</h2>
-                <p>This server fetches products from various API sources.</p>
-                <div class="content">
+                <div id="main_info">
+                    <p>Total Products: {{ total_products }}</p>
+                    <p>Total Categories: {{ total_categories }}</p>
+                </div>
+                <div id="products-table">
+                    <div id="pagination">
+                        {% if has_prev %}
+                            <a href="?page={{ page - 1 }}">← Назад</a>
+                        {% else %}
+                            <span class="disabled">← Назад</span>
+                        {% endif %}
+
+                        <span>Страница {{ page }} из {{ total_pages }}</span>
+
+                        {% if has_next %}
+                            <a href="?page={{ page + 1 }}">Вперёд →</a>
+                        {% else %}
+                            <span class="disabled">Вперёд →</span>
+                        {% endif %}
+                    </div>
+
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Price</th>
+                                <th>On Main</th>
+                                <th>Categories</th>
+                                <th>Image</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for product in products %}
+                                <tr>
+                                    <td>{{ product.id }}</td>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.price }}</td>
+                                    <td>{{ product.on_main }}</td>
+                                    <td>{{ product.categories| map(attribute='name') |join(', ') }}</td>
+                                    <td><img src="{{ product.image }}" alt="Product Image" width="50"></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+
+
+
                 </div>
             </div>
         </section>

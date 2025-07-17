@@ -1,10 +1,10 @@
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import declarative_base, sessionmaker
 from sqlalchemy import create_engine
+from settings import DATABASE_URL
 
 
-engine = create_engine("postgresql+psycopg2://postgres:postgres@localhost:5432/noxer_db")
+engine = create_engine(DATABASE_URL)
 
-class Base(DeclarativeBase):
-    pass
+Base = declarative_base()
 
 SessionLocal = sessionmaker(bind=engine)
