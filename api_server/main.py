@@ -11,7 +11,6 @@ Base.metadata.create_all(engine)
 
 logger = set_logger("SERVER")
 
-save_products_to_db()
 
 def create_app():
     app = Flask(__name__)
@@ -26,5 +25,4 @@ if __name__ == '__main__':
     
     # app = create_app()
     # app.run(debug=True, host="0.0.0.0", port=5555)
-
     save_products_to_db()
