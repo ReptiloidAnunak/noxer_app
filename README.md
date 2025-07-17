@@ -30,7 +30,7 @@ An automated backend for an online store that fetches and updates product data f
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/yourusername/noxer_app.git
+git clone https://github.com/ReptiloidAnunak/noxer_app
 cd noxer_app
 
 # 2. Make sure you have Docker and Docker Compose v2+
